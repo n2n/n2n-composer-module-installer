@@ -67,17 +67,17 @@ class ModuleInstallerComposer2 extends LibraryInstaller {
 	public function uninstall(\Composer\Repository\InstalledRepositoryInterface $repo, \Composer\Package\PackageInterface $package) {
     	$this->moveBackResources($package);
     	
-    	if (!$this->isTmplPackage($package)) {
-    		$pattern = '/' . $this->getModuleName($package);
-	    	$this->removeFromGitIgnore($this->getVarDestDirPath() . DIRECTORY_SEPARATOR . self::ETC_DIR,
-	    			$pattern);
-	    	$this->removeFromGitIgnore($this->getPublicDestDirPath() . DIRECTORY_SEPARATOR . self::ASSETS_DIR,
-	    			$pattern);
-			parent::uninstall($repo, $package);
-    	} else {
+    	if ($this->isTmplPackage($package)) {
     		$repo->removePackage($package);
+    		return;
     	}
-		
+    
+    	$pattern = '/' . $this->getModuleName($package);
+	    $this->removeFromGitIgnore($this->getVarDestDirPath() . DIRECTORY_SEPARATOR . self::ETC_DIR,
+	    		$pattern);
+		$this->removeFromGitIgnore($this->getPublicDestDirPath() . DIRECTORY_SEPARATOR . self::ASSETS_DIR,
+				$pattern);
+		return parent::uninstall($repo, $package);
 	}
 	
 	const N2N_MODULE_TYPE = 'n2n-module';
