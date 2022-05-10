@@ -4,7 +4,7 @@ namespace n2n\composer\module;
 use Composer\Installer\LibraryInstaller;
 use Composer\Package\Package;
 
-class ModuleInstaller extends LibraryInstaller {
+class ModuleInstallerComposer1 extends LibraryInstaller {
 	/**
 	 * {@inheritDoc}
 	 * @see \Composer\Installer\InstallerInterface::supports()
@@ -48,7 +48,7 @@ class ModuleInstaller extends LibraryInstaller {
 			}
 			return;
 		}
-				
+		
     	$this->moveBackResources($initial);
 				
 		parent::update($repo, $initial, $target);
@@ -187,6 +187,7 @@ class ModuleInstaller extends LibraryInstaller {
 	
 	private function moveApp(Package $package) {
 		if (!$this->isTmplPackage($package) || $this->hasDestEtcDirPath($package)) return;
+
 		
  	    $appOrigDirPath = $this->getAppOrigDirPath($package);
  	    $appDestDirPath = $this->getAppDestDirPath();
