@@ -323,7 +323,7 @@ class ModuleInstallerComposer2 extends LibraryInstaller {
 		
 		$filename = $dirPath . DIRECTORY_SEPARATOR . '.gitignore';
 		
-		if (is_file($filename)) return;
+		if (!is_file($filename)) return;
 		$contents = file($filename);
 		
 		$newContents = [];
